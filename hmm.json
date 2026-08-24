@@ -101,13 +101,6 @@
       "url": "https://github.com/NovaFlare-Engine-haxelib/extension-androidtools"
     },
     {
-      "name": "extension-orientation",
-      "type": "git",
-      "dir": null,
-      "ref": "main",
-      "url": "https://github.com/NovaFlare-Engine-haxelib/extension-orientation.git"
-    },
-    {
       "name": "androiddialogs",
       "type": "git",
       "dir": null,

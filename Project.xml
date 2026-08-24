@@ -118,7 +118,6 @@
 	<haxelib name="androiddialogs" if="android" />
 	<haxelib name="devicelanguage" if="android" />
     <haxelib name="flxanimate" unless="web"/>
-    <haxelib name="extension-orientation" if="mobile" />
 	<!--In case you want to use the ui package-->
 	<haxelib name="flixel-ui" />
 	<haxelib name="linc_luajit" if="LUA_ALLOWED"/>
@@ -131,7 +130,6 @@
 
 	<!-- Mobile and Android Specific-->
 	<haxelib name="extension-androidtools" if="android" />
-	<haxelib name="extension-orientation" if="mobile" />
 
 	<!-- Disable Discord IO Thread -->
 	<haxedef name="DISCORD_DISABLE_IO_THREAD" if="hxdiscord_rpc" />
