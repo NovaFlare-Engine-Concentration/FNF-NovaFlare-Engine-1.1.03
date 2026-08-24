@@ -103,7 +103,7 @@ class TitleState extends MusicBeatState
 		
 		//https://github.com/beihu235/AndroidDialogs
 		
-		#if android
+		#if mobile
 		/*
 		if (lime.app.Application.current.meta.get('title') != "Friday Night Funkin' NF Engine"
 		 || lime.app.Application.current.meta.get("packageName") != "com.NFengine"
@@ -466,6 +466,23 @@ class TitleState extends MusicBeatState
 
 		var pressedEnter:Bool = FlxG.keys.justPressed.ENTER || controls.ACCEPT;
 
+		if (video != null && video.bitmap != null && video.bitmap.canSkip && skipVideo.visible != false)
+		{
+			var skipPressed:Bool = FlxG.keys.justPressed.ENTER || controls.ACCEPT;
+			#if mobile
+			skipPressed = skipPressed #if android || FlxG.android.justReleased.BACK #end;
+			#end
+
+			pressedEnter = false;
+			
+			if (skipPressed)
+			{
+				video.bitmap.finishVideo();
+				videoEnd();
+			}
+		}
+
+
 		#if mobile
 		for (touch in FlxG.touches.list)
 		{
@@ -821,17 +838,15 @@ class TitleState extends MusicBeatState
 	var video:VideoSprite;
 	function startVideo(name:String)
 	{
-	    skipVideo = new FlxText(0, FlxG.height - 26, 0, "Press " + #if android "Back on your phone " #else "Enter " #end + "to skip", 18);
+		skipVideo = new FlxText(0, FlxG.height - 26, 0, "Press " + #if mobile "Back on your phone " #else "Enter " #end + "to skip", 18);
 		skipVideo.setFormat(Assets.getFont("assets/fonts/montserrat.ttf").fontName, 18);
 		skipVideo.alpha = 0;
 		skipVideo.alignment = CENTER;
-        skipVideo.screenCenter(X);
-        skipVideo.scrollFactor.set();
+		skipVideo.screenCenter(X);
+		skipVideo.scrollFactor.set();
 		skipVideo.antialiasing = ClientPrefs.data.antialiasing;
 		
-		
 		#if VIDEOS_ALLOWED
-
 		var filepath:String = Paths.video(name);
 		#if sys
 		if(!FileSystem.exists(filepath))
@@ -843,18 +858,22 @@ class TitleState extends MusicBeatState
 			videoEnd();
 			return;
 		}
-        
-        
-		var video:VideoSprite = new VideoSprite(0, 0, 1280, 720);
-			video.playVideo(filepath);
-			add(video);
-			video.updateHitbox();
-			video.finishCallback = function()
-			{
-				videoEnd();
-				return;
-			}
-		showText();	
+		
+		video = new VideoSprite(0, 0, 1280, 720);
+		video.bitmap.canSkip = true;
+		video.playVideo(filepath);
+		add(video);
+		video.updateHitbox();
+		video.finishCallback = function()
+		{
+			videoEnd();
+		};
+		add(skipVideo);
+	
+		new FlxTimer().start(0.5, function(tmr:FlxTimer) {
+			FlxTween.tween(skipVideo, {alpha: 1}, 1, {ease: FlxEase.quadIn});
+			FlxTween.tween(skipVideo, {alpha: 0}, 1, {ease: FlxEase.quadIn, startDelay: 4});
+		});
 		#else
 		FlxG.log.warn('Platform not supported!');
 		videoEnd();

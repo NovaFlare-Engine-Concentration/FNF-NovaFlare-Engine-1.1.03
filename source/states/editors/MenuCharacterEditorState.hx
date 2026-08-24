@@ -69,7 +69,7 @@ class MenuCharacterEditorState extends MusicBeatState
 		tipText2.scrollFactor.set();
 		add(tipText2);
 		
-        #if android
+        #if mobile
 		tipText.text = "Arrow Keys - Change Offset (Hold A for 10x speed)";
 		tipText2.text = "Pad B - Play \"Start Press\" animation (Boyfriend Character Type)";
 		#end
@@ -78,7 +78,7 @@ class MenuCharacterEditorState extends MusicBeatState
 		FlxG.mouse.visible = true;
 		updateCharTypeBox();
 		
-		#if android
+		#if mobile
 		addVirtualPad(MenuCharacterEditor, MenuCharacterEditor);
 		#end
 
@@ -291,26 +291,26 @@ class MenuCharacterEditorState extends MusicBeatState
 			}
 
 			var shiftMult:Int = 1;
-			if(FlxG.keys.pressed.SHIFT #if android || MusicBeatState._virtualpad.buttonA.pressed #end) shiftMult = 10;
+			if(FlxG.keys.pressed.SHIFT #if mobile || MusicBeatState._virtualpad.buttonA.pressed #end) shiftMult = 10;
 
-			if(FlxG.keys.justPressed.LEFT #if android || MusicBeatState._virtualpad.buttonLeft.justPressed #end) {
+			if(FlxG.keys.justPressed.LEFT #if mobile || MusicBeatState._virtualpad.buttonLeft.justPressed #end) {
 				characterFile.position[0] += shiftMult;
 				updateOffset();
 			}
-			if(FlxG.keys.justPressed.RIGHT #if android || MusicBeatState._virtualpad.buttonRight.justPressed #end) {
+			if(FlxG.keys.justPressed.RIGHT #if mobile || MusicBeatState._virtualpad.buttonRight.justPressed #end) {
 				characterFile.position[0] -= shiftMult;
 				updateOffset();
 			}
-			if(FlxG.keys.justPressed.UP #if android || MusicBeatState._virtualpad.buttonUp.justPressed #end) {
+			if(FlxG.keys.justPressed.UP #if mobile || MusicBeatState._virtualpad.buttonUp.justPressed #end) {
 				characterFile.position[1] += shiftMult;
 				updateOffset();
 			}
-			if(FlxG.keys.justPressed.DOWN #if android || MusicBeatState._virtualpad.buttonDown.justPressed #end) {
+			if(FlxG.keys.justPressed.DOWN #if mobile || MusicBeatState._virtualpad.buttonDown.justPressed #end) {
 				characterFile.position[1] -= shiftMult;
 				updateOffset();
 			}
 
-			if((FlxG.keys.justPressed.SPACE #if android || MusicBeatState._virtualpad.buttonB.justPressed #end) && curTypeSelected == 1) {
+			if((FlxG.keys.justPressed.SPACE #if mobile || MusicBeatState._virtualpad.buttonB.justPressed #end) && curTypeSelected == 1) {
 				grpWeekCharacters.members[curTypeSelected].animation.play('confirm', true);
 			}
 		}
@@ -407,7 +407,7 @@ class MenuCharacterEditorState extends MusicBeatState
 			var splittedImage:Array<String> = imageInputText.text.trim().split('_');
 			var characterName:String = splittedImage[splittedImage.length-1].toLowerCase().replace(' ', '');
 
-			#if android
+			#if mobile
 			SUtil.saveContent(characterName, ".json", data);
 			#else
 			_file = new FileReference();

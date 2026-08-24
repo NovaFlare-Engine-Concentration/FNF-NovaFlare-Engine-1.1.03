@@ -74,7 +74,7 @@ class ResetScoreSubState extends MusicBeatSubstate
 		
 		cameras = [FlxG.cameras.list[FlxG.cameras.list.length - 1]];
 		
-		#if android
+		#if mobile
         addVirtualPad(LEFT_RIGHT, A_B);
         addPadCamera();
         #end

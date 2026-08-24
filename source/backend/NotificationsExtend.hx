@@ -1,7 +1,7 @@
 package backend;
 
 //link: https://github.com/Tw1ddle/samcodes-notifications
-#if android
+#if mobile
 import extension.notifications.Notifications;
 
 class NotificationsExtend{

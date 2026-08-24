@@ -78,7 +78,7 @@ class DialogueEditorState extends MusicBeatState
 		addLineText.scrollFactor.set();
 		add(addLineText);
 		
-		#if android
+		#if mobile
 		addLineText.text = 'Press A to remove the current dialogue line, Press B to add another line after the current one.';
 		#end
 
@@ -97,7 +97,7 @@ class DialogueEditorState extends MusicBeatState
 		add(daText);
 		changeText();
 		
-		#if android
+		#if mobile
 		addVirtualPad(CHART_EDITOR, A_B_X_Y);
 		#end
 		
@@ -332,7 +332,7 @@ class DialogueEditorState extends MusicBeatState
 				ClientPrefs.toggleVolumeKeys(false);
 				blockInput = true;
 
-				if(FlxG.keys.justPressed.ENTER #if android || MusicBeatState._virtualpad.buttonY.justPressed #end) {
+				if(FlxG.keys.justPressed.ENTER #if mobile || MusicBeatState._virtualpad.buttonY.justPressed #end) {
 					if(inputText == lineInputText) {
 						inputText.text += '\\n';
 						inputText.caretIndex += 2;
@@ -346,7 +346,7 @@ class DialogueEditorState extends MusicBeatState
 
 		if(!blockInput) {
 			ClientPrefs.toggleVolumeKeys(true);
-			if(FlxG.keys.justPressed.SPACE #if android || MusicBeatState._virtualpad.buttonX.justPressed #end) {
+			if(FlxG.keys.justPressed.SPACE #if mobile || MusicBeatState._virtualpad.buttonX.justPressed #end) {
 				reloadText(false);
 			}
 			if(FlxG.keys.justPressed.ESCAPE #if android || FlxG.android.justReleased.BACK #end) {
@@ -355,8 +355,8 @@ class DialogueEditorState extends MusicBeatState
 				transitioning = true;
 			}
 			var negaMult:Array<Int> = [1, -1];
-			var controlAnim:Array<Bool> = [FlxG.keys.justPressed.W #if android || MusicBeatState._virtualpad.buttonUp.justPressed #end, FlxG.keys.justPressed.S #if android || MusicBeatState._virtualpad.buttonDown.justPressed #end];
-			var controlText:Array<Bool> = [FlxG.keys.justPressed.D #if android || MusicBeatState._virtualpad.buttonLeft.justPressed #end, FlxG.keys.justPressed.A #if android || MusicBeatState._virtualpad.buttonRight.justPressed #end];
+			var controlAnim:Array<Bool> = [FlxG.keys.justPressed.W #if mobile || MusicBeatState._virtualpad.buttonUp.justPressed #end, FlxG.keys.justPressed.S #if mobile || MusicBeatState._virtualpad.buttonDown.justPressed #end];
+			var controlText:Array<Bool> = [FlxG.keys.justPressed.D #if mobile || MusicBeatState._virtualpad.buttonLeft.justPressed #end, FlxG.keys.justPressed.A #if mobile || MusicBeatState._virtualpad.buttonRight.justPressed #end];
 			for (i in 0...controlAnim.length) {
 				if(controlAnim[i] && character.jsonFile.animations.length > 0) {
 					curAnim -= negaMult[i];
@@ -375,7 +375,7 @@ class DialogueEditorState extends MusicBeatState
 				}
 			}
 
-			if(FlxG.keys.justPressed.O #if android || MusicBeatState._virtualpad.buttonA.justPressed #end) {
+			if(FlxG.keys.justPressed.O #if mobile || MusicBeatState._virtualpad.buttonA.justPressed #end) {
 				dialogueFile.dialogue.remove(dialogueFile.dialogue[curSelected]);
 				if(dialogueFile.dialogue.length < 1) //You deleted everything, dumbo!
 				{
@@ -384,7 +384,7 @@ class DialogueEditorState extends MusicBeatState
 					];
 				}
 				changeText();
-			} else if(FlxG.keys.justPressed.P #if android || MusicBeatState._virtualpad.buttonB.justPressed #end) {
+			} else if(FlxG.keys.justPressed.P #if mobile || MusicBeatState._virtualpad.buttonB.justPressed #end) {
 				dialogueFile.dialogue.insert(curSelected + 1, copyDefaultLine());
 				changeText(1);
 			}
@@ -427,7 +427,7 @@ class DialogueEditorState extends MusicBeatState
 			}
 			character.playAnim(character.jsonFile.animations[curAnim].anim, daText.finishedText);
 			animText.text = 'Animation: ' + character.jsonFile.animations[curAnim].anim + ' (' + (curAnim + 1) +' / ' + leLength + ') - Press W or S to scroll';
-			#if android
+			#if mobile
 		    animText.text = 'Animation: ' + character.jsonFile.animations[curAnim].anim + ' (' + (curAnim + 1) +' / ' + leLength + ') - Press UP or Down to scroll';
 		    #end
 		} else {
@@ -439,7 +439,7 @@ class DialogueEditorState extends MusicBeatState
 
 		selectedText.text = 'Line: (' + (curSelected + 1) + ' / ' + dialogueFile.dialogue.length + ') - Press A or D to scroll';
 		
-		#if android
+		#if mobile
 		selectedText.text = 'Line: (' + (curSelected + 1) + ' / ' + dialogueFile.dialogue.length + ') - Press Left or Right to scroll';
 		#end
 	}
@@ -524,7 +524,7 @@ class DialogueEditorState extends MusicBeatState
 		var data:String = haxe.Json.stringify(dialogueFile, "\t");
 		if (data.length > 0)
 		{
-			#if android
+			#if mobile
 			SUtil.saveContent("dialogue", ".json", data);
 			#else
 			_file = new FileReference();

@@ -2,7 +2,7 @@ package states;
 
 import backend.WeekData;
 
-#if android
+#if mobile
 import android.flixel.FlxButton;
 #else
 import flixel.ui.FlxButton;
@@ -273,7 +273,7 @@ class ModsMenuState extends MusicBeatState
 		FlxG.mouse.visible = true;
 		#end
 
-		#if android
+		#if mobile
 		addVirtualPad(UP_DOWN, B_C);
 		addPadCamera();
 		#end
@@ -372,7 +372,7 @@ class ModsMenuState extends MusicBeatState
 			FlxG.mouse.visible = false;
 			#end
 			saveTxt();
-			#if android
+			#if mobile
 			removeVirtualPad();
 			#end
 			if(needaReset)
@@ -396,7 +396,7 @@ class ModsMenuState extends MusicBeatState
 		}
         
         var shiftMult = 1;
-        if(FlxG.keys.pressed.SHIFT  #if android || (MusicBeatState._virtualpad.buttonC.pressed) #end) shiftMult = 3;
+        if(FlxG.keys.pressed.SHIFT  #if mobile || (MusicBeatState._virtualpad.buttonC.pressed) #end) shiftMult = 3;
         
 		if(controls.UI_UP_P)
 		{

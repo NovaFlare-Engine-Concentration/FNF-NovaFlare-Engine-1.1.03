@@ -240,7 +240,7 @@ class MainMenuState extends MusicBeatState
 		FlxG.mouse.visible = true;
 		#end
         
-		#if android
+		#if mobile
 		addVirtualPad(MainMenuState, A_B_E);
 		MusicBeatState._virtualpad.cameras = [camHUD];
 		#end
@@ -309,11 +309,11 @@ class MainMenuState extends MusicBeatState
 			{
 				if (!FlxG.mouse.overlaps(spr)) {
 				    if (FlxG.mouse.pressed
-				    #if android && !FlxG.mouse.overlaps(MusicBeatState._virtualpad.buttonA) #end){
+				    #if mobile && !FlxG.mouse.overlaps(MusicBeatState._virtualpad.buttonA) #end){
         			    spr.animation.play('idle');
     			    }
 				    if (FlxG.mouse.justReleased 
-				    #if android && !FlxG.mouse.overlaps(MusicBeatState._virtualpad.buttonA) #end){
+				    #if mobile && !FlxG.mouse.overlaps(MusicBeatState._virtualpad.buttonA) #end){
 					    spr.animation.play('idle');			        			        
 			        } //work better for use virtual pad
 			    }
@@ -350,7 +350,7 @@ class MainMenuState extends MusicBeatState
 				MusicBeatState.switchState(new TitleState());
 			}		
 				
-			else if (controls.justPressed('debug_1') #if android || MusicBeatState._virtualpad.buttonE.justPressed #end)
+			else if (controls.justPressed('debug_1') #if mobile || MusicBeatState._virtualpad.buttonE.justPressed #end)
 			{
 				endCheck = true;
 				MusicBeatState.switchState(new MasterEditorMenu());

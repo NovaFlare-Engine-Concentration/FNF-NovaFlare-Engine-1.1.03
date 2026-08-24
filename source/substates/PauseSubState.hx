@@ -167,7 +167,7 @@ class PauseSubState extends MusicBeatSubstate
     	backButton.scale.set(0.45, 0.45);
     	backButton.updateHitbox();
     	backButton.alpha = 0;
-    	#if android backButton.y -= 127; #end
+    	#if mobile backButton.y -= 127; #end
 	
     	if (Difficulty.list.length < 2) options.remove('Difficulty');
 	
@@ -372,7 +372,7 @@ class PauseSubState extends MusicBeatSubstate
     		changeMenuColor();
     	}, 0);
     	
-    	#if android
+    	#if mobile
 		    if (PlayState.chartingMode)addVirtualPad(PauseSubstate, A);
 		    else addVirtualPad(UP_DOWN, A);
 		    addPadCamera();

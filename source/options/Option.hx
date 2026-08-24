@@ -999,6 +999,122 @@ class FPSCapOption extends Option
 	}
 }
 
+class DrawFramerateOption extends Option
+{
+	public function new(desc:String)
+	{
+		super();
+		description = desc;
+		acceptValues = true;
+	}
+
+	override function left():Bool
+	{
+		ClientPrefs.data.drawFramerate -= 5;
+		if (ClientPrefs.data.drawFramerate < 30)
+			ClientPrefs.data.drawFramerate = 30;
+		onChangeDrawFramerate();
+		display = updateDisplay();
+		return true;
+	}
+
+	override function right():Bool
+	{
+		ClientPrefs.data.drawFramerate += 5;
+		if (ClientPrefs.data.drawFramerate > 360)
+			ClientPrefs.data.drawFramerate = 360;
+		onChangeDrawFramerate();
+		display = updateDisplay();
+		return true;
+	}
+
+	private function onChangeDrawFramerate()
+	{
+		FlxG.drawFramerate = ClientPrefs.data.drawFramerate;
+		#if sys
+		FlxG.stage.application.window.lockRender = ClientPrefs.data.lockRender;
+		#end
+		if (FlxG.drawFramerate > FlxG.updateFramerate) {
+			FlxG.updateFramerate = FlxG.drawFramerate;
+		}
+	}
+
+	private override function updateDisplay():String
+	{
+		return "Draw Framerate: < " + ClientPrefs.data.drawFramerate + " FPS >";
+	}
+}
+
+class LockRenderOption extends Option
+{
+	public function new(desc:String)
+	{
+		super();
+		description = desc;
+	}
+
+	override function left():Bool
+	{
+		ClientPrefs.data.lockRender = !ClientPrefs.data.lockRender;
+		onChangeLockRender();
+		display = updateDisplay();
+		return true;
+	}
+
+	override function right():Bool
+	{
+		left();
+		return true;
+	}
+
+	private function onChangeLockRender()
+	{
+		#if sys
+		FlxG.stage.application.window.lockRender = ClientPrefs.data.lockRender;
+		#end
+	}
+
+	private override function updateDisplay():String
+	{
+		return "Lock Render: < " + (ClientPrefs.data.lockRender ? enable_O : disable_O) + " >";
+	}
+}
+
+class RenderThreadOption extends Option
+{
+	public function new(desc:String)
+	{
+		super();
+		description = desc;
+	}
+
+	override function left():Bool
+	{
+		ClientPrefs.data.renderThread = !ClientPrefs.data.renderThread;
+		onChangeRenderThread();
+		display = updateDisplay();
+		return true;
+	}
+
+	override function right():Bool
+	{
+		left();
+		return true;
+	}
+
+	private function onChangeRenderThread()
+	{
+		#if sys
+		lime.graphics.opengl.GL.setMultiThreaded(ClientPrefs.data.renderThread);
+		#end
+	}
+
+	private override function updateDisplay():String
+	{
+		return "Render Thread: < " + (ClientPrefs.data.renderThread ? enable_O : disable_O) + " >";
+	}
+}
+
 class FPSRainbowOption extends Option
 {
 	public function new(desc:String)

@@ -207,7 +207,7 @@ class FreeplayState extends MusicBeatState
 		add(bg);
 		bg.screenCenter();
 		
-		bgMove = new FlxBackdrop(Paths.image('menuExtend/backdrop'), XY, 0, 0);
+		bgMove = new FlxBackdrop(Paths.image('menuExtend/Others/backdrop'), XY, 0, 0);
 		bgMove.alpha = 0.1;
 		bgMove.color = ColorArray[currentColor];
 		bgMove.screenCenter();
@@ -438,7 +438,7 @@ class FreeplayState extends MusicBeatState
         add(leftLine);
         
 		#if PRELOAD_ALL
-		#if android
+		#if mobile
 		var leText:String = "Press X to listen to the Song / Press C to open the Gameplay Changers Menu / Press Y to Reset your Score and Accuracy.";
 		var size:Int = 16;
 		#else
@@ -462,7 +462,7 @@ class FreeplayState extends MusicBeatState
 		FlxG.mouse.visible = true;
 		#end
 		
-		#if android
+		#if mobile
         addVirtualPad(FULL, A_B_C_X_Y_Z);
         //addPadCamera();
         #end
@@ -540,7 +540,7 @@ class FreeplayState extends MusicBeatState
 		}
 
 		var shiftMult:Int = 1;
-		if(FlxG.keys.pressed.SHIFT  #if android || MusicBeatState._virtualpad.buttonZ.pressed #end) shiftMult = 3;
+		if(FlxG.keys.pressed.SHIFT  #if mobile || MusicBeatState._virtualpad.buttonZ.pressed #end) shiftMult = 3;
 
 		if(songs.length > 1)
 		{
@@ -596,7 +596,7 @@ class FreeplayState extends MusicBeatState
 		}
 		
          //idk
-		if (FlxG.keys.justPressed.ESCAPE #if android || (FlxG.mouse.justPressed && FlxG.mouse.overlaps(MusicBeatState._virtualpad.buttonB)) #end)
+		if (FlxG.keys.justPressed.ESCAPE #if mobile || (FlxG.mouse.justPressed && FlxG.mouse.overlaps(MusicBeatState._virtualpad.buttonB)) #end)
 		{
 		    persistentUpdate = false;
 			if(colorTween != null) {
@@ -606,16 +606,16 @@ class FreeplayState extends MusicBeatState
 			MusicBeatState.switchState(new MainMenuState());
 		}
 
-		if(FlxG.keys.justPressed.CONTROL #if android || MusicBeatState._virtualpad.buttonC.justPressed #end)
+		if(FlxG.keys.justPressed.CONTROL #if mobile || MusicBeatState._virtualpad.buttonC.justPressed #end)
 		{
 			
-			#if android
+			#if mobile
 			removeVirtualPad();
 			#end
 			checkSubstate = true;
 			openSubState(new GameplayChangersSubstate());
 		}
-		else if(FlxG.keys.justPressed.SPACE #if android || MusicBeatState._virtualpad.buttonX.justPressed #end)
+		else if(FlxG.keys.justPressed.SPACE #if mobile || MusicBeatState._virtualpad.buttonX.justPressed #end)
 		{		    			
 		    
 			if(instPlaying != curSelected)
@@ -640,7 +640,7 @@ class FreeplayState extends MusicBeatState
 				var needsVoices:Bool = false;
 				if (PlayState.SONG.needsVoices)needsVoices = true;	
 				
-				#if android
+				#if mobile
 			    removeVirtualPad();
 			    #end						
 					
@@ -718,7 +718,7 @@ class FreeplayState extends MusicBeatState
 			}
 			persistentUpdate = false;			
 			
-			if (FlxG.keys.pressed.SHIFT #if android || MusicBeatState._virtualpad.buttonZ.pressed #end){
+			if (FlxG.keys.pressed.SHIFT #if mobile || MusicBeatState._virtualpad.buttonZ.pressed #end){
 				LoadingState.loadAndSwitchState(new ChartingState());
 			}else{
 				LoadingState.loadAndSwitchState(new PlayState());
@@ -728,13 +728,10 @@ class FreeplayState extends MusicBeatState
 			FlxG.sound.music.volume = 0;
 					
 			destroyFreeplayVocals();
-			#if desktop
-			DiscordClient.loadModRPC();
-			#end
 		}
-		else if(controls.RESET #if android || MusicBeatState._virtualpad.buttonY.justPressed #end)
+		else if(controls.RESET #if mobile || MusicBeatState._virtualpad.buttonY.justPressed #end)
 		{
-		    #if android
+		    #if mobile
 			removeVirtualPad();
 			#end
 			checkSubstate = true;
@@ -755,7 +752,7 @@ class FreeplayState extends MusicBeatState
 		
 		persistentUpdate = true;
 				
-		#if android
+		#if mobile
 		removeVirtualPad();
 		addVirtualPad(FULL, A_B_C_X_Y_Z);
 		#end

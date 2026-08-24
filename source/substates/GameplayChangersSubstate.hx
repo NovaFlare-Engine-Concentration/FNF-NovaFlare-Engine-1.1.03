@@ -146,7 +146,7 @@ class GameplayChangersSubstate extends MusicBeatSubstate
 		
 		cameras = [FlxG.cameras.list[FlxG.cameras.list.length - 1]];
 		
-		#if android
+		#if mobile
 		addVirtualPad(FULL, A_B_C);
 		addPadCamera();
 		#end
@@ -287,7 +287,7 @@ class GameplayChangersSubstate extends MusicBeatSubstate
 				}
 			}
 
-			if(controls.RESET #if android || MusicBeatSubstate._virtualpad.buttonC.justPressed #end)
+			if(controls.RESET #if mobile || MusicBeatSubstate._virtualpad.buttonC.justPressed #end)
 			{
 				for (i in 0...optionsArray.length)
 				{

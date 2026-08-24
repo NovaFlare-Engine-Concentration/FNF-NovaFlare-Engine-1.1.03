@@ -310,7 +310,7 @@ class PlayState extends MusicBeatState
 
 		CustomFadeTransition.nextCamera = camOther;
 		
-		#if android
+		#if mobile
 		addAndroidControls();
 		MusicBeatState.androidc.visible = true;
 		MusicBeatState.androidc.alpha = 0.000001;
@@ -1656,7 +1656,7 @@ class PlayState extends MusicBeatState
 			botplayTxt.alpha = 1 - Math.sin((Math.PI * botplaySine) / 180);
 		}
 
-		if (controls.PAUSE && startedCountdown && canPause)
+		if ((controls.PAUSE #if android || FlxG.android.justReleased.BACK #end) && startedCountdown && canPause)
 		{
 			var ret:Dynamic = callOnScripts('onPause', null, true);
 			if(ret != FunkinLua.Function_Stop) {
@@ -1892,7 +1892,6 @@ class PlayState extends MusicBeatState
 
 		#if desktop
 		DiscordClient.changePresence("Chart Editor", null, null, true);
-		DiscordClient.resetClientID();
 		#end
 
 		MusicBeatState.switchState(new ChartingState());
@@ -1904,7 +1903,6 @@ class PlayState extends MusicBeatState
 		persistentUpdate = false;
 		paused = true;
 		cancelMusicFadeTween();
-		#if desktop DiscordClient.resetClientID(); #end
 		MusicBeatState.switchState(new CharacterEditorState(SONG.player2));
 	}
 
@@ -2344,7 +2342,6 @@ class PlayState extends MusicBeatState
 				{
 					Mods.loadTopMod();
 					FlxG.sound.playMusic(Paths.music('freakyMenu'));
-					#if desktop DiscordClient.resetClientID(); #end
 
 					cancelMusicFadeTween();
 					if(FlxTransitionableState.skipNextTransIn) {
@@ -2384,7 +2381,6 @@ class PlayState extends MusicBeatState
 			{
 				trace('WENT BACK TO FREEPLAY??');
 				Mods.loadTopMod();
-				#if desktop DiscordClient.resetClientID(); #end
 
 				cancelMusicFadeTween();
 				if(FlxTransitionableState.skipNextTransIn) {

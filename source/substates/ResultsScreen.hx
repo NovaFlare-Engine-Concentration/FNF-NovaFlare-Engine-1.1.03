@@ -349,7 +349,7 @@ class ResultsScreen extends MusicBeatSubstate
 		add(setMsText);		
 
 		var backTextShow:String = 'Press Enter to continue';
-		#if android backTextShow = 'Press Text to continue'; #end
+		#if mobile backTextShow = 'Press Text to continue'; #end
 		
 		backText = new FlxText(FlxG.width, 0, backTextShow);
 		backText.size = 28;
@@ -442,7 +442,7 @@ class ResultsScreen extends MusicBeatSubstate
                 
                 new FlxTimer().start(1, function(tmr:FlxTimer){    		        		                        		
 		            var backTextShow:String = 'Press Enter to continue';
-            		#if android backTextShow = 'Press Text to continue'; #end		
+            		#if mobile backTextShow = 'Press Text to continue'; #end		
             		backText.text = backTextShow;
             		
 		            getReadyClose = false;

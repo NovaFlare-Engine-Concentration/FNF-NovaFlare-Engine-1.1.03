@@ -18,7 +18,7 @@ class ExtraFunctions
 		{
 		   name = name.toUpperCase();
 		   
-		   #if android // Extend for check control for android
+		   #if mobile // Extend for check control for android
            if (MusicBeatState.androidc.newhbox != null){ //check for android control and dont check for keyboard
 			    if (name == 'SPACE' && MusicBeatState.androidc.newhbox.buttonSpace.justPressed){
     			    return true;
@@ -44,7 +44,7 @@ class ExtraFunctions
 		{
 		   name = name.toUpperCase();
 		   
-		   #if android // Extend for check control for android
+		   #if mobile // Extend for check control for android
            if (MusicBeatState.androidc.newhbox != null){ //check for android control and dont check for keyboard
 			    if (name == 'SPACE' && MusicBeatState.androidc.newhbox.buttonSpace.pressed){
     			    return true;
@@ -69,7 +69,7 @@ class ExtraFunctions
 		{
 		   name = name.toUpperCase();
 		   
-		   #if android // Extend for check control for android
+		   #if mobile // Extend for check control for android
            if (MusicBeatState.androidc.newhbox != null){ //check for android control and dont check for keyboard
 			    if (name == 'SPACE' && MusicBeatState.androidc.newhbox.buttonSpace.justReleased){
     			    return true;

@@ -4,9 +4,9 @@ import openfl.Lib;
 
 #if android
 
-import android.Tools;
+import android.os.Environment as Tools;
 import android.Permissions;
-import android.PermissionsList;
+
 #end
 
 import haxe.PosInfos;

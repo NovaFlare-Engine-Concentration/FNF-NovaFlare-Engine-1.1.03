@@ -144,7 +144,7 @@ class CreditsState extends MusicBeatState
 		bg.color = CoolUtil.colorFromString(creditsStuff[curSelected][4]);
 		intendedColor = bg.color;
 		changeSelection();
-		#if android
+		#if mobile
                 addVirtualPad(UP_DOWN, A_B_C);
                 #end
 		super.create();
@@ -164,7 +164,7 @@ class CreditsState extends MusicBeatState
 			if(creditsStuff.length > 1)
 			{
 				var shiftMult:Int = 1;
-				if(FlxG.keys.pressed.SHIFT  #if android || MusicBeatState._virtualpad.buttonC.pressed #end) shiftMult = 3;
+				if(FlxG.keys.pressed.SHIFT  #if mobile || MusicBeatState._virtualpad.buttonC.pressed #end) shiftMult = 3;
 
 				var upP = controls.UI_UP_P;
 				var downP = controls.UI_DOWN_P;

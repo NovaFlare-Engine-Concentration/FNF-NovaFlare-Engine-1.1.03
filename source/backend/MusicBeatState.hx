@@ -6,7 +6,7 @@ import flixel.FlxState;
 
 
 
-#if android
+#if mobile
 import android.AndroidControls.AndroidControls;
 import android.FlxVirtualPad;
 
@@ -54,13 +54,13 @@ class MusicBeatState extends FlxUIState
 	
 	var _psychCameraInitialized:Bool = true;
 	
-	#if android
+	#if mobile
 	public static var _virtualpad:FlxVirtualPad;
 	public static var androidc:AndroidControls;
 	
 	#end
 	
-	#if android
+	#if mobile
 	public function addVirtualPad(?DPad:FlxDPadMode, ?Action:FlxActionMode) {
 		_virtualpad = new FlxVirtualPad(DPad, Action, 0.75, ClientPrefs.data.antialiasing);
 		add(_virtualpad);
@@ -69,20 +69,20 @@ class MusicBeatState extends FlxUIState
 	}
 	#end
 
-	#if android
+	#if mobile
 	public function removeVirtualPad() {
 		//controls.removeFlxInput(trackedinputsUI);
 		remove(_virtualpad);
 	}
 	#end
 	
-	#if android
+	#if mobile
 	public function noCheckPress() {
 		Controls.CheckPress = false;
 	}
 	#end
 	
-	#if android
+	#if mobile
 	public function addAndroidControls() {
 		androidc = new AndroidControls();
 		
@@ -125,7 +125,7 @@ class MusicBeatState extends FlxUIState
 	}
 	#end
 
-	#if android
+	#if mobile
     public function addPadCamera() {
 		var camcontrol = new flixel.FlxCamera();
 		camcontrol.bgColor.alpha = 0;

@@ -5,7 +5,7 @@ import flixel.addons.ui.interfaces.IFlxUIClickable;
 import flixel.addons.ui.interfaces.IFlxUIWidget;
 import flixel.addons.ui.interfaces.IHasParams;
 
-#if android
+#if mobile
 import android.flixel.FlxButton;
 #else
 import flixel.ui.FlxButton;
@@ -436,7 +436,7 @@ class FlxUIDropDownMenu extends FlxUIGroup implements IFlxUIWidget implements IF
 		#if FLX_MOUSE
 		if (dropPanel.visible)
 		{
-			#if android
+			#if mobile
 			if(list.length > 1 && canScroll) 
 			{
 				for (swipe in FlxG.swipes)

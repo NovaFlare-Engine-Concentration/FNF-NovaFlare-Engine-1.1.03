@@ -48,7 +48,10 @@ class SaveVariables {
 	public var cacheOnGPU:Bool = #if !switch false #else true #end; //From Stilic	
 	public var imagePersist:Bool = false;
 	public var framerate:Int = 60;
-	
+	public var drawFramerate:Int = 120;
+	public var lockRender:Bool = false;
+	public var renderThread:Bool = true;
+		
 	public var CustomFade:String = 'Move';
 	public var CustomFadeSound:Float = 0.5;
 	public var CustomFadeText:Bool = true;
@@ -253,6 +256,18 @@ class ClientPrefs {
 			FlxG.drawFramerate = data.framerate;
 			FlxG.updateFramerate = data.framerate;
 		}
+
+		if (data.drawFramerate > 0) {
+			FlxG.drawFramerate = data.drawFramerate;
+		}
+		
+		#if sys
+		FlxG.stage.application.window.lockRender = data.lockRender;
+		#end
+
+		#if sys
+		lime.graphics.opengl.GL.setMultiThreaded(data.renderThread);
+		#end
 
 		if(FlxG.save.data.gameplaySettings != null) {
 			var savedMap:Map<String, Dynamic> = FlxG.save.data.gameplaySettings;

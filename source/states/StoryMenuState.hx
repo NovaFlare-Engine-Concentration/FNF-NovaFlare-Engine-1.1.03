@@ -184,7 +184,7 @@ class StoryMenuState extends MusicBeatState
 		changeWeek();
 		changeDifficulty();
 
-		#if android
+		#if mobile
 		addVirtualPad(FULL, A_B_X_Y);
 		#end
 
@@ -249,17 +249,17 @@ class StoryMenuState extends MusicBeatState
 			else if (upP || downP)
 				changeDifficulty();
 
-			if(FlxG.keys.justPressed.CONTROL #if android || MusicBeatState._virtualpad.buttonX.justPressed #end)
+			if(FlxG.keys.justPressed.CONTROL #if mobile || MusicBeatState._virtualpad.buttonX.justPressed #end)
 			{
-				#if android
+				#if mobile
 				removeVirtualPad();
 				#end
 				persistentUpdate = false;
 				openSubState(new GameplayChangersSubstate());
 			}
-			else if(controls.RESET #if android || MusicBeatState._virtualpad.buttonY.justPressed #end)
+			else if(controls.RESET #if mobile || MusicBeatState._virtualpad.buttonY.justPressed #end)
 			{
-				#if android
+				#if mobile
 				removeVirtualPad();
 				#end
 				persistentUpdate = false;
@@ -342,10 +342,6 @@ class StoryMenuState extends MusicBeatState
 				LoadingState.loadAndSwitchState(new PlayState(), true);
 				FreeplayState.destroyFreeplayVocals();
 			});
-
-			#if (MODS_ALLOWED && desktop)
-			DiscordClient.loadModRPC();
-			#end
 		} else {
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 		}

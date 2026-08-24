@@ -108,7 +108,7 @@ class ControlsSubState extends MusicBeatSubstate
 
 		createTexts();
 		
-		#if android
+		#if mobile
 		addVirtualPad(FULL, A_B);
 		#end
 	}
@@ -278,7 +278,7 @@ class ControlsSubState extends MusicBeatSubstate
 		{
 			if(controls.BACK || FlxG.gamepads.anyJustPressed(B))
 			{
-				#if android
+				#if mobile
 				FlxTransitionableState.skipNextTransOut = true;
 				FlxG.resetState();
 				#else

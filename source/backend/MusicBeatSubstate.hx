@@ -3,7 +3,7 @@ package backend;
 import flixel.FlxSubState;
 
 
-#if android
+#if mobile
 import android.AndroidControls.AndroidControls;
 import android.FlxVirtualPad;
 
@@ -41,14 +41,14 @@ class MusicBeatSubstate extends FlxSubState
 	inline function get_controls():Controls
 		return Controls.instance;
 		
-    	#if android
+    	#if mobile
 	public static var _virtualpad:FlxVirtualPad;
 	public static var androidc:AndroidControls;
 	//var trackedinputsUI:Array<FlxActionInput> = [];
 	//var trackedinputsNOTES:Array<FlxActionInput> = [];
 	#end
 	
-	#if android
+	#if mobile
 	public function addVirtualPad(?DPad:FlxDPadMode, ?Action:FlxActionMode) {
 		_virtualpad = new FlxVirtualPad(DPad, Action, 0.75, ClientPrefs.data.antialiasing);
 		add(_virtualpad);
@@ -62,20 +62,20 @@ class MusicBeatSubstate extends FlxSubState
 	
 
 
-	#if android
+	#if mobile
 	public function removeVirtualPad() {
 		//controls.removeFlxInput(trackedinputsUI);
 		remove(_virtualpad);
 	}
 	#end
 	
-	#if android
+	#if mobile
 	public function noCheckPress() {
 		Controls.CheckPress = false;
 	}
 	#end
 	
-	#if android
+	#if mobile
 	public function addAndroidControls() {
 		androidc = new AndroidControls();
 		
@@ -118,7 +118,7 @@ class MusicBeatSubstate extends FlxSubState
 	}
 	#end
 
-	#if android
+	#if mobile
     public function addPadCamera() {
 		var camcontrol = new flixel.FlxCamera();
 		camcontrol.bgColor.alpha = 0;

@@ -17,6 +17,7 @@ import openfl.Lib;
 #end
 
 import openfl.utils.Assets;
+import openfl.system.System;
 
 class Watermark extends Bitmap
 {
@@ -37,16 +38,10 @@ class Watermark extends Bitmap
 
 class FPS extends TextField
 {
-	/**
-		The current frame rate, expressed using frames-per-second
-	**/
 	public var currentFPS(default, null):Float;
-    public var logicFPStime(default, null):Float;
-    public var DisplayFPS(default, null):Float;
-
-	
-	@:noCompletion private var currentTime:Float;
-	@:noCompletion private var times:Array<Float>;
+	public var currentTPS(default, null):Float;
+	public var DisplayFPS(default, null):Float;
+	public var DisplayTPS(default, null):Float;
 
 	public function new(x:Float = 10, y:Float = 10, color:Int = 0x000000)
 	{
@@ -56,36 +51,26 @@ class FPS extends TextField
 		this.y = y;
 
 		currentFPS = 0;
+		currentTPS = 0;
+		DisplayFPS = 0;
+		DisplayTPS = 0;
+
 		selectable = false;
 		mouseEnabled = false;
-		defaultTextFormat = new TextFormat(Assets.getFont("assets/fonts/montserrat.ttf").fontName, 16, color, false, null, null, LEFT, 0, 0);
+		defaultTextFormat = new TextFormat(Assets.getFont("assets/fonts/montserrat.ttf").fontName, 12, color);
 		autoSize = LEFT;
-		
-		multiline = true; //多行文本
-		wordWrap = false; //禁用自动换行
-		
+		multiline = true;
 		text = "FPS: ";
-	
-		currentTime = 0;
-		times = [];
+		textColor = 0xFFFFFFFF;
 
-		#if flash
-		addEventListener(Event.ENTER_FRAME, function(e)
-		{
-			var time = Lib.getTimer();
-			__enterFrame(time - currentTime);
-		});
-		#end
+		addEventListener(Event.ENTER_FRAME, draw);
+		addEventListener(Event.ENTER_UPDATE, update);
 	}
-	
-	
-	
-	public static var currentColor = 0;    
-	 var skippedFrames:Float = 0;
-	 
-     var logicFPSnum = 0;
-	
-    var ColorArray:Array<Int> = [
+
+	public static var currentColor = 0;
+	private var skippedFrames = 0;
+
+	private var ColorArray:Array<Int> = [
 		0xFF9400D3,
 		0xFF4B0082,
 		0xFF0000FF,
@@ -93,90 +78,64 @@ class FPS extends TextField
 		0xFFFFFF00,
 		0xFFFF7F00,
 		0xFFFF0000
-	                                
-	    ];
+	];
 
-	// Event Handlers
-	@:noCompletion
-	private #if !flash override #end function __enterFrame(deltaTime:Float):Void
-	{	
-		
-		logicFPStime += deltaTime;
-        logicFPSnum ++;
-        
-        if (logicFPStime >= 200) //update data for 0.2s
-        {
-            currentFPS = Math.ceil(currentFPS * 0.5 + 1 / (logicFPStime / logicFPSnum / 1000) * 0.5) ;
-            logicFPStime = 0;
-                logicFPSnum = 0;
-        }
-        
-        if (currentFPS > ClientPrefs.data.framerate) currentFPS = ClientPrefs.data.framerate;
-        
-        
-        var changeNum:Int = 20;  //change color num for 1s
-		
+	private function update(e:Event):Void
+	{
+		DataCalc.update();
+	}
+
+	private function draw(e:Event):Void
+	{
+		DataCalc.draw();
+
+		currentTPS = DataCalc.updateFPS;
+		currentFPS = DataCalc.drawFPS;
+
+		if (DisplayFPS > currentFPS)
+			DisplayFPS = DisplayFPS - 1;
+		else if (DisplayFPS < currentFPS)
+			DisplayFPS = DisplayFPS + 1;
+
+		if (DisplayTPS > currentTPS)
+			DisplayTPS = DisplayTPS - 1;
+		else if (DisplayTPS < currentTPS)
+			DisplayTPS = DisplayTPS + 1;
+
 		if (ClientPrefs.data.rainbowFPS)
-	    {
-	        if (skippedFrames >= 1000 / changeNum)
-		    {
-		    	if (currentColor >= ColorArray.length)
-    				currentColor = 0;
-    			textColor = ColorArray[currentColor];
-    			currentColor++;
-    			skippedFrames = 0;
-    		}
-    		else
-    		{
-    			skippedFrames += deltaTime;
-    		}
+		{
+			if (skippedFrames >= 6)
+			{
+				if (currentColor >= ColorArray.length) currentColor = 0;
+				textColor = ColorArray[currentColor];
+				currentColor++;
+				skippedFrames = 0;
+			}
+			else
+			{
+				skippedFrames++;
+			}
 		}
 		else
 		{
-		textColor = 0xFFFFFFFF;		
-		}                      
-        
-        if (!ClientPrefs.data.rainbowFPS && currentFPS <= ClientPrefs.data.framerate / 2){
-		    textColor = 0xFFFF0000;
-		}				
-		
-		
-        if ( DisplayFPS > currentFPS ){
-            if (Math.abs(DisplayFPS - currentFPS) > 20) DisplayFPS = DisplayFPS - 4;
-            else if (Math.abs(DisplayFPS - currentFPS) > 10) DisplayFPS = DisplayFPS - 2;
-            else DisplayFPS = DisplayFPS - 1;
-        }
-        else if ( DisplayFPS < currentFPS ){
-            if (Math.abs(DisplayFPS - currentFPS) > 20) DisplayFPS = DisplayFPS + 4;
-            else if (Math.abs(DisplayFPS - currentFPS) > 10) DisplayFPS = DisplayFPS + 2;
-            else DisplayFPS = DisplayFPS + 1;
-        }                          	
-		
-			text = "FPS: " + DisplayFPS + "/" + ClientPrefs.data.framerate;
-
-			var memoryMegas:Float = 0;
-            var memType:String = ' MB';
-						
-
-    		// be a real man and calculate memory from hxcpp
-    		var actualMem:Float = Gc.memInfo64(ClientPrefs.data.memoryType); // update: this sucks
-    		
-    		memoryMegas = Math.abs(FlxMath.roundDecimal(actualMem / 1000000, 1));
-		
-		if (ClientPrefs.data.showMEM){
-			if (memoryMegas > 1000){
-			    memoryMegas = Math.ceil( Math.abs( actualMem ) / 10000000 / 1.024)/100;
-			    memType = ' GB';
-			}    
-			
-			text += "\nMEM: " + memoryMegas + memType;            
+			textColor = 0xFFFFFFFF;
 		}
-            
-            if (ClientPrefs.data.showMS) text += '\n' + "Delay: " + Math.floor(1 / DisplayFPS * 10000 + 0.5) / 10 + " MS";
-            
-            text += "\nNF V1.1.0(Beta-3)";
-                     
-			text += "\n";
-	
+
+		var memoryMegas:Float = Math.abs(FlxMath.roundDecimal(System.totalMemory / 1000000, 1));
+
+		text = "FPS: " + Math.floor(DisplayFPS) + "/" + ClientPrefs.data.drawFramerate;
+		text += "\nTPS: " + Math.floor(DisplayTPS) + "/" + ClientPrefs.data.framerate;
+		text += "\nMemory: " + memoryMegas + " MB";
+
+		if (memoryMegas > 1000)
+		{
+			var newmemoryMegas:Float = Math.ceil(Math.abs(System.totalMemory) / 10000000 / 1.024) / 100;
+			text = "FPS: " + Math.floor(DisplayFPS) + "/" + ClientPrefs.data.drawFramerate;
+			text += "\nTPS: " + Math.floor(DisplayTPS) + "/" + ClientPrefs.data.framerate;
+			text += "\nMemory: " + newmemoryMegas + " GB";
+		}
+
+		text += "\nNF V1.1.(Beta-3)\n"  + Math.floor(1 / DisplayFPS * 10000 + 0.5) / 10 + "ms";           
+		text += "\n";
 	}
 }

@@ -123,7 +123,7 @@ class OSTtoNew extends MusicBeatSubstate
 		    FlxG.sound.playMusic(Paths.music('freakyMenu'), 0);
 			FlxG.sound.music.fadeIn(4, 0, 0.7);		
 		    
-			#if android
+			#if mobile
 			FlxTransitionableState.skipNextTransOut = true;
 			FlxG.resetState();
 			#else

@@ -100,12 +100,17 @@ class Main extends Sprite
 		Controls.instance = new Controls();
 		ClientPrefs.loadDefaultKeys();
 	
-		#if mobile
-		addChild(new FlxGame(1280, 720, TitleState, 60, 60, true, true));
-		#else
-		addChild(new FlxGame(game.width, game.height, game.initialState, #if (flixel < "5.0.0") game.zoom, #end game.framerate, game.framerate, game.skipSplash, game.startFullscreen));
-		#end
-
+		var flxGame:FlxGame = new FlxGame(
+			#if (openfl >= "9.2.0") 
+			1280, 720 
+			#else 
+			game.width, game.height 
+			#end, 
+			game.initialState, 
+			#if (flixel < "5.0.0") game.zoom, #end 
+			game.framerate, game.framerate, game.skipSplash, game.startFullscreen
+		);
+		addChild(flxGame);
 	
 		fpsVar = new FPS(5, 5, 0xFFFFFF);
 		addChild(fpsVar);
@@ -148,13 +153,20 @@ class Main extends Sprite
 		FlxG.autoPause = false;
 		FlxG.mouse.visible = false;
 		#end
+
+		FlxG.fixedTimestep = false;
+		FlxG.game.focusLostFramerate = 60;
+		@:privateAccess {
+			if (FlxG.game.stage != null && FlxG.game.stage.window != null)
+				FlxG.game.stage.window.frameRate = FlxG.updateFramerate;
+		}
 		
 		#if CRASH_HANDLER
 		Lib.current.loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, onCrash);
 		#end
 
 		#if desktop
-		DiscordClient.prepare();
+		DiscordClient.start();
 		#end
 
 		// shader coords fix

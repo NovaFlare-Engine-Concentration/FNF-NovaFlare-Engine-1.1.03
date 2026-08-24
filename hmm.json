@@ -2,23 +2,36 @@
   "dependencies": [
     {
       "name": "lime",
-      "type": "haxelib",
-      "version": "7.9.0"
+      "type": "git",
+      "dir": null,
+      "ref": "main",
+      "url": "https://github.com/NovaFlare-Engine-haxelib/lime-8.3.0"
     },
     {
       "name": "openfl",
-      "type": "haxelib",
-      "version": "9.2.0"
+      "type": "git",
+      "dir": null,
+      "ref": "main",
+      "url": "https://github.com/NovaFlare-Engine-haxelib/openfl-9.5.0"
     },
     {
       "name": "flixel",
-      "type": "haxelib",
-      "version": "5.5.0"
-    },    
+      "type": "git",
+      "dir": null,
+      "ref": "main",
+      "url": "https://github.com/NovaFlare-Engine-haxelib/flixel-5.9.0"
+    },
     {
       "name": "flixel-addons",
       "type": "haxelib",
-      "version": "3.0.2"
+      "version": "3.2.2"
+    },
+    {
+      "name": "flixel-ui",
+      "type": "git",
+      "dir": null,
+      "ref": "main",
+      "url": "https://github.com/NovaFlare-Engine-haxelib/flixel-ui"
     },
     {
       "name": "flixel-tools",
@@ -26,26 +39,25 @@
       "version": "1.5.1"
     },
     {
-      "name": "flixel-ui",
-      "type": "haxelib",
-      "version": "2.5.0"
-    },
-    {
       "name": "hxcpp",
       "type": "git",
       "dir": null,
-      "ref": "master",
-      "url": "https://github.com/mcagabe19-stuff/hxcpp"
+      "ref": "main",
+      "url": "https://github.com/NovaFlare-Engine-haxelib/hxcpp-4.3.2-new.git"
     },
     {
-      "name": "hxCodec",
-      "type": "haxelib",
-      "version": "2.6.0"
+      "name": "hxvlc",
+      "type": "git",
+      "dir": null,
+      "ref": "main",
+      "url": "https://github.com/NovaFlare-Engine-haxelib/hxvlc-2.2.4.git"
     },
     {
       "name": "SScript",
-      "type": "haxelib",
-      "version": null
+      "type": "git",
+      "dir": null,
+      "ref": "main",
+      "url": "https://github.com/NovaFlare-Engine-haxelib/SScript-8.1.6/"
     },
     {
       "name": "hscript",
@@ -64,38 +76,69 @@
     },
     {
       "name": "hxdiscord_rpc",
+      "type": "haxelib",
+      "version": null
+    },
+    {
+      "name": "linc_luajit",
       "type": "git",
       "dir": null,
       "ref": "main",
-      "url": "https://github.com/MAJigsaw77/hxdiscord_rpc"
+      "url": "https://github.com/NovaFlare-Engine-haxelib/linc_luajit"
     },
     {
       "name": "flxanimate",
       "type": "git",
       "dir": null,
       "ref": "dev",
-      "url": "https://github.com/ShadowMario/flxanimate"
-    },
-    {
-      "name": "linc_luajit",
-      "type": "git",
-      "dir": null,
-      "ref": "master",
-      "url": "https://github.com/superpowers04/linc_luajit"
-    },
-    {
-      "name": "extension-orientation",
-      "type": "git",
-      "dir": null,
-      "ref": "master",
-      "url": "https://github.com/HaxeExtension/extension-orientation.git"
+      "url": "https://github.com/NovaFlare-Engine-haxelib/flxanimate-1.0.1/"
     },
     {
       "name": "extension-androidtools",
       "type": "git",
       "dir": null,
       "ref": "main",
-      "url": "https://github.com/MaysLastPlay77/extension-androidtools"
+      "url": "https://github.com/NovaFlare-Engine-haxelib/extension-androidtools"
+    },
+    {
+      "name": "extension-orientation",
+      "type": "git",
+      "dir": null,
+      "ref": "main",
+      "url": "https://github.com/NovaFlare-Engine-haxelib/extension-orientation.git"
+    }
+    {
+      "name": "androiddialogs",
+      "type": "git",
+      "dir": null,
+      "ref": "master",
+      "url": "https://github.com/NovaFlare-Engine-haxelib/AndroidDialogs.git"
+    },
+    {
+      "name": "devicelanguage",
+      "type": "git",
+      "dir": null,
+      "ref": "master",
+      "url": "https://github.com/NovaFlare-Engine-haxelib/devicelanguage.git"
+    },
+    {
+      "name": "funkin.vis",
+      "type": "git",
+      "dir": null,
+      "ref": "main",
+      "url": "https://github.com/NovaFlare-Engine-haxelib/funkVis-FrequencyFixed"
+    },
+    {
+      "name": "hxCodec",
+      "type": "haxelib",
+      "version": null
+    },
+    {
+      "name": "grig.audio",
+      "type": "git",
+      "dir": "src",
+      "ref": "57f5d47f2533fd0c3dcd025a86cb86c0dfa0b6d2",
+      "url": "https://gitlab.com/haxe-grig/grig.audio.git"
     }
   ]
 }

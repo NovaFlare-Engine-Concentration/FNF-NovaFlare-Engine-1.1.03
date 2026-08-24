@@ -5,7 +5,7 @@ import flixel.input.gamepad.FlxGamepadInputID;
 import flixel.input.gamepad.mappings.FlxGamepadMapping;
 import flixel.input.keyboard.FlxKey;
 
-#if android
+#if mobile
 import android.AndroidControls.AndroidControls;
 
 import flixel.group.FlxGroup;
@@ -118,7 +118,7 @@ class Controls
 		controllerMode = false;
 		}				
 
-		return result || _myGamepadJustPressed(gamepadBinds[key]) == true #if android || checkAndroidControl_justPressed(key) == true #end;
+		return result || _myGamepadJustPressed(gamepadBinds[key]) == true #if mobile || checkAndroidControl_justPressed(key) == true #end;
 	}
 
 	public function pressed(key:String)
@@ -133,7 +133,7 @@ class Controls
 		controllerMode = false;
 		}
 
-		return result || _myGamepadPressed(gamepadBinds[key]) == true #if android || checkAndroidControl_pressed(key) == true #end;
+		return result || _myGamepadPressed(gamepadBinds[key]) == true #if mobile || checkAndroidControl_pressed(key) == true #end;
 	}
 
 	public function justReleased(key:String)
@@ -148,7 +148,7 @@ class Controls
 		controllerMode = false;
 		}
 
-		return result || _myGamepadJustReleased(gamepadBinds[key]) == true #if android || checkAndroidControl_justReleased(key) == true #end;
+		return result || _myGamepadJustReleased(gamepadBinds[key]) == true #if mobile || checkAndroidControl_justReleased(key) == true #end;
 	}
 
 	public var controllerMode:Bool = false;
@@ -198,7 +198,7 @@ class Controls
 		return false;
 	}
 	
-	#if android
+	#if mobile
 	
 	private function checkAndroidControl_justPressed(key:String):Bool
 	{

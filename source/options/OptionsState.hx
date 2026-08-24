@@ -255,6 +255,11 @@ class OptionsState extends MusicBeatState
 			new OptionCata(935, 40 + 64, "Watermark", [
                 new FPSCapOption("Change your FPS Cap."),		
 				new FPSOption("Toggle the FPS Counter."),
+
+				new DrawFramerateOption("Maximum rendering framerate.\nSet this to match your monitor refresh rate for smoother visuals."),
+				new LockRenderOption("If checked, limits rendering to Draw Framerate.\nTurn OFF for maximum FPS (may cause screen tearing)."),
+				new RenderThreadOption("If checked, enables multithreaded rendering.\nCan improve performance on multi-core CPUs."),
+
 				new FPSRainbowOption("Make the FPS Counter flicker through rainbow colors."),
                 new MEMOption("Toggle the MEM Counter."),
                 new MEMType("Choose memory showcase data."),
@@ -312,7 +317,7 @@ class OptionsState extends MusicBeatState
     		bg.antialiasing = ClientPrefs.data.antialiasing;
     		add(bg);
     		
-        	var bgMove:FlxBackdrop = new FlxBackdrop(Paths.image('menuExtend/backdrop'), XY, 0, 0);
+        	var bgMove:FlxBackdrop = new FlxBackdrop(Paths.image('menuExtend/Others/backdrop'), XY, 0, 0);
     		bgMove.alpha = 0.1;
     		bgMove.color = ColorArray[currentColor];
     		bgMove.screenCenter();
@@ -358,7 +363,7 @@ class OptionsState extends MusicBeatState
 		selectedOption = isReset ? selectedCat.options[saveSelectedOptionIndex] : selectedCat.options[0];
 		selectedOptionIndex = isReset ? saveSelectedOptionIndex : 0;                
         
-		#if android
+		#if mobile
         addVirtualPad(FULL, A_B_C);
         //addPadCamera();
         #end
@@ -572,7 +577,7 @@ class OptionsState extends MusicBeatState
 
 		anyKey = FlxG.keys.justPressed.ANY || (gamepad != null ? gamepad.justPressed.ANY : false);
 		back = controls.BACK;
-		reset = controls.RESET #if android || MusicBeatState._virtualpad.buttonC.justPressed #end;
+		reset = controls.RESET #if mobile || MusicBeatState._virtualpad.buttonC.justPressed #end;
 
 		
 			if (isInMain)
