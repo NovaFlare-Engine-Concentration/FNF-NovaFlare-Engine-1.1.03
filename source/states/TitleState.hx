@@ -103,7 +103,7 @@ class TitleState extends MusicBeatState
 		
 		//https://github.com/beihu235/AndroidDialogs
 		
-		#if mobile
+		#if android
 		/*
 		if (lime.app.Application.current.meta.get('title') != "Friday Night Funkin' NF Engine"
 		 || lime.app.Application.current.meta.get("packageName") != "com.NFengine"
@@ -469,8 +469,8 @@ class TitleState extends MusicBeatState
 		if (video != null && video.bitmap != null && video.bitmap.canSkip && skipVideo.visible != false)
 		{
 			var skipPressed:Bool = FlxG.keys.justPressed.ENTER || controls.ACCEPT;
-			#if mobile
-			skipPressed = skipPressed #if android || FlxG.android.justReleased.BACK #end;
+			#if android
+			skipPressed = (skipPressed || FlxG.android.justReleased.BACK);
 			#end
 
 			pressedEnter = false;
